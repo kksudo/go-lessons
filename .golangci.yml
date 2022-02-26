@@ -51,7 +51,6 @@ linters:
     - lll
     - makezero
     - misspell
-    - nestif
     - nilerr
     - noctx
     - nolintlint

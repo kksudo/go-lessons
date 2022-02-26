@@ -36,9 +36,11 @@ func Unpack(s string) (string, error) {
 		return "", err
 	}
 
-	var expStr strings.Builder
-	var accum = ""
-	dig := 0
+	var (
+		expStr strings.Builder
+		accum  = ""
+		dig    int
+	)
 
 	for i := 0; i < len(s); i++ {
 		if unicode.IsDigit(rune(s[i])) {
@@ -47,7 +49,6 @@ func Unpack(s string) (string, error) {
 				return "", err
 			}
 
-			//Convert current val to int
 			dig, _ = strconv.Atoi(string(s[i]))
 			if dig != 0 {
 				expStr.WriteString(strings.Repeat(string(s[i-1]), dig-1))
@@ -63,18 +64,16 @@ func Unpack(s string) (string, error) {
 		}
 	}
 
-	//Write a last one accumulator val
 	expStr.WriteString(accum)
 	return expStr.String(), err
 }
 
 func main() {
-	str := `a\2s2d3j`
+	str := `a\b2s2d3j`
 	res, err := Unpack(str)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println(res)
-
 }
